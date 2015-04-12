@@ -1,51 +1,36 @@
 package turtle;
 
+import pen.Pen;
 import coordinateSystem.Point;
 
 public class Turtle {
-	private int direction;
+	private double direction;
 	private Point location;
 	private Pen pen;
-
-	public enum Pen {
-		UP, DOWN
-	}
 
 	public Turtle() {
 		setLocation(new Point());
 		setDirection(0);
-		setPen(Pen.DOWN);
+		pen = new Pen();
 	}
 
 	public void move(int distance) {
-		// TODO Move the turtle distance units in the current direction and draw
+		// Move the turtle distance units in the current direction and draw
 		// on the screen if the pen is down.
 	}
 
-	public void turn(int degrees) {
-		// TODO Add “degrees” to the current heading of the turtle.
+	public void turn(double degrees) {
+		// Add “degrees” to the current heading of the turtle.
+		setDirection(getDirection() + degrees);
 	}
 
-	public void penUp() {
-		// TODO Lift the pen up.
-	}
-
-	public void penDown() {
-		// TODO Put the pen down.
-	}
-
-	public boolean isPenUp() {
-		// TODO Return true if pen is up, false if the pen is down.
-		return false;
-	}
-
-	public int direction() {
-		// TODO Returns the current direction of the turtle.
-		return 0;
+	public double direction() {
+		// Returns the current direction of the turtle.
+		return getDirection();
 	}
 
 	public Point location() {
-		// TODO Returns the current location of the turtle
+		// Returns the current location of the turtle
 		return new Point();
 	}
 
@@ -67,7 +52,7 @@ public class Turtle {
 	/**
 	 * @return the direction
 	 */
-	public int getDirection() {
+	public double getDirection() {
 		return direction;
 	}
 
@@ -75,7 +60,7 @@ public class Turtle {
 	 * @param direction
 	 *            the direction to set
 	 */
-	public void setDirection(int direction) {
+	public void setDirection(double direction) {
 		this.direction = direction;
 	}
 
