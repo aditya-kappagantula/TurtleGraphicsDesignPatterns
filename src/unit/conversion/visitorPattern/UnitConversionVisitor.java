@@ -7,20 +7,20 @@ import unit.Unit;
 
 public class UnitConversionVisitor implements IUnitVisitor {
 	@Override
-	public void visit(Degree aDegree, Unit aUnit) {
-		// TODO Auto-generated method stub
-		// return new Radian();
+	public double visit(Degree aDegree, Unit aUnit) {
+		return aUnit.getConversionBehaviour().convert(aDegree.getValue());
+		// return new ConvertDegreeToRadian().convert(aDegree.getValue());
 	}
 
 	@Override
-	public void visit(Radian aRadian, Unit aUnit) {
-		// TODO Auto-generated method stub
-		// return new Degree();
+	public double visit(Radian aRadian, Unit aUnit) {
+		return aUnit.getConversionBehaviour().convert(aRadian.getValue());
+		// return new ConvertRadianToDegree().convert(aRadian.getValue());
 	}
 
 	@Override
-	public void visit(Second aSecond, Unit aUnit) {
-		// TODO Auto-generated method stub
-		// return new Radian();
+	public double visit(Second aSecond, Unit aUnit) {
+		return aUnit.getConversionBehaviour().convert(aSecond.getValue());
+		// return new ConvertSecondToDegree().convert(aSecond.getValue());
 	}
 }

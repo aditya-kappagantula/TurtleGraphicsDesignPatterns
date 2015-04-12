@@ -6,9 +6,9 @@ import unit.Second;
 import unit.Unit;
 
 public interface IUnitVisitor {
-	public void visit(Degree aDegree, Unit aUnit);
+	public double visit(Degree aDegree, Unit aUnit);
 
-	public void visit(Radian aRadian, Unit aUnit);
+	public double visit(Radian aRadian, Unit aUnit);
 
-	public void visit(Second aSecond, Unit aUnit);
+	public double visit(Second aSecond, Unit aUnit);
 }

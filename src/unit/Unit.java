@@ -1,11 +1,11 @@
 package unit;
 
-public abstract class Unit {
-	private double value;
+import unit.conversion.visitorPattern.IUnit;
+import unit.conversion.visitorPattern.strategyPattern.degreeConversionStrategy.IConversionBehaviour;
 
-	public Unit() {
-		setValue(0.0);
-	}
+public abstract class Unit implements IUnit {
+	private double value;
+	protected IConversionBehaviour conversionBehaviour;
 
 	/**
 	 * @return the value
@@ -20,5 +20,20 @@ public abstract class Unit {
 	 */
 	public void setValue(double value) {
 		this.value = value;
+	}
+
+	/**
+	 * @return the aConversionBehaviour
+	 */
+	public IConversionBehaviour getConversionBehaviour() {
+		return conversionBehaviour;
+	}
+
+	/**
+	 * @param aConversionBehaviour
+	 *            the aConversionBehaviour to set
+	 */
+	public void setConversionBehaviour(IConversionBehaviour aConversionBehaviour) {
+		this.conversionBehaviour = aConversionBehaviour;
 	}
 }

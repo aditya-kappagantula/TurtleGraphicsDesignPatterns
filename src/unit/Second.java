@@ -1,16 +1,37 @@
 package unit;
 
-import unit.conversion.visitorPattern.IUnit;
 import unit.conversion.visitorPattern.IUnitVisitor;
+import unit.conversion.visitorPattern.strategyPattern.degreeConversionStrategy.IConversionBehaviour;
 
-public class Second extends Unit implements IUnit {
+public class Second extends Unit {
+	// private IConversionBehaviour conversionBehaviour;
 	public Second() {
-		this.setValue(0);
+		setValue(0);
+	}
+
+	public Second(IConversionBehaviour aConversionBehaviour) {
+		setValue(0);
+		setConversionBehaviour(aConversionBehaviour);
+	}
+
+	/**
+	 * @return the aConversionBehaviour
+	 */
+	public IConversionBehaviour getConversionBehaviour() {
+		return conversionBehaviour;
+	}
+
+	/**
+	 * @param aConversionBehaviour
+	 *            the aConversionBehaviour to set
+	 */
+	public void setConversionBehaviour(IConversionBehaviour aConversionBehaviour) {
+		this.conversionBehaviour = aConversionBehaviour;
 	}
 
 	@Override
-	public void accept(IUnitVisitor aVisitor, Unit aUnit) {
-		aVisitor.visit(this, aUnit);
+	public double accept(IUnitVisitor aVisitor, Unit aUnit) {
+		return aVisitor.visit(this, aUnit);
 	}
 
 	public String type() {
