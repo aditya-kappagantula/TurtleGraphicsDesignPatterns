@@ -1,5 +1,6 @@
 package turtle.interpreterPattern;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import turtle.interpreterPattern.command.Command;
@@ -16,24 +17,25 @@ public class Evaluator implements IExpression {
 	}
 
 	@Override
-	public Command interpret(Map<String, Double> variables) {
-		Command aCommand;
+	public ArrayList<Command> interpret(Map<String, Double> variables) {
+		ArrayList<Command> aCommandList = new ArrayList<Command>();
 		if (anExpression.contains("repeat")) {
 			int count = Integer.parseInt(anExpression.split(" ")[1]);
-			aCommand = new Repeat(count);
+			aCommandList.add(new Repeat(count));
 		} else if (anExpression.contains("end")) {
-			aCommand = new End();
+			aCommandList.add(new End());
 		} else if (anExpression.contains("move")) {
 			double distance = Double.parseDouble(anExpression.split(" ")[1]);
-			aCommand = new Move(distance);
+			aCommandList.add(new Move(distance));
 		} else if (anExpression.contains("turn")) {
 			double degrees = Double.parseDouble(anExpression.split(" ")[1]);
-			aCommand = new Turn(degrees);
+			aCommandList.add(new Turn(degrees));
 		} else {
+			// TODO Implement this correctly
 			// condition -> anExpression.contains("$");
 			double distance = Double.parseDouble(anExpression.split(" ")[1]);
-			aCommand = new Move(distance);
+			aCommandList.add(new Move(distance));
 		}
-		return aCommand;
+		return aCommandList;
 	}
 }

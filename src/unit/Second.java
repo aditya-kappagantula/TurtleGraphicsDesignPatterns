@@ -30,8 +30,8 @@ public class Second extends Unit {
 	}
 
 	@Override
-	public double accept(IUnitVisitor aVisitor, Unit aUnit) {
-		return aVisitor.visit(this, aUnit);
+	public double accept(IUnitVisitor aVisitor) {
+		return aVisitor.visit(this);
 	}
 
 	public String type() {

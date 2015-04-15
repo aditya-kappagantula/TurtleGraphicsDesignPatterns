@@ -70,7 +70,11 @@ public class Turtle {
 			variables.put("w", 5.0);
 			variables.put("x", 10.0);
 			variables.put("z", 42.0);
-			commands.add(anEvaluator.interpret(variables));
+			Iterator<Command> anIterator = anEvaluator.interpret(variables)
+					.iterator();
+			while (anIterator.hasNext()) {
+				commands.add(anIterator.next());
+			}
 		}
 		aBufferedReader.close();
 	}

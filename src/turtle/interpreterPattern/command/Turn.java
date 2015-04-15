@@ -11,5 +11,7 @@ public class Turn extends Command {
 
 	@Override
 	public void execute(Turtle aTurtle) {
+		double currentDirection = aTurtle.getDirection();
+		aTurtle.setDirection(currentDirection + direction);
 	}
 }
