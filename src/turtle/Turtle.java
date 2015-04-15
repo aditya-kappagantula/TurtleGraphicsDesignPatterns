@@ -1,81 +1,68 @@
 package turtle;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 import pen.Pen;
+import turtle.interpreterPattern.Command;
 import coordinateSystem.Point;
 
 public class Turtle {
 	private double direction;
 	private Point location;
 	private Pen pen;
+	private ArrayList<Command> commands = new ArrayList<Command>();
 
 	public Turtle() {
 		setLocation(new Point());
 		setDirection(0);
 		pen = new Pen();
+		File directory = new File(".");
+		try {
+			File aFile = new File(directory.getCanonicalPath() + File.separator
+					+ "turtleProgram.txt");
+			readFile(aFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public void move(int distance) {
-		// Move the turtle distance units in the current direction and draw
-		// on the screen if the pen is down.
-	}
-
-	public void turn(double degrees) {
-		// Add “degrees” to the current heading of the turtle.
-		setDirection(getDirection() + degrees);
-	}
-
-	public double direction() {
-		// Returns the current direction of the turtle.
-		return getDirection();
-	}
-
-	public Point location() {
-		// Returns the current location of the turtle
-		return new Point();
-	}
-
-	/**
-	 * @return the location
-	 */
 	public Point getLocation() {
 		return location;
 	}
 
-	/**
-	 * @param location
-	 *            the location to set
-	 */
 	public void setLocation(Point location) {
 		this.location = location;
 	}
 
-	/**
-	 * @return the direction
-	 */
 	public double getDirection() {
 		return direction;
 	}
 
-	/**
-	 * @param direction
-	 *            the direction to set
-	 */
 	public void setDirection(double direction) {
 		this.direction = direction;
 	}
 
-	/**
-	 * @return the pen
-	 */
 	public Pen getPen() {
 		return pen;
 	}
 
-	/**
-	 * @param pen
-	 *            the pen to set
-	 */
 	public void setPen(Pen pen) {
 		this.pen = pen;
+	}
+
+	private void readFile(File aFile) throws IOException {
+		FileInputStream aFileInputStream = new FileInputStream(aFile);
+		BufferedReader aBufferedReader = new BufferedReader(
+				new InputStreamReader(aFileInputStream));
+		String line = null;
+		while ((line = aBufferedReader.readLine()) != null) {
+			System.out.println(line);
+		}
+		aBufferedReader.close();
 	}
 }
