@@ -1,6 +1,9 @@
-package turtle.interpreterPattern;
+package turtle.interpreterPattern.command;
 
 import java.util.Map;
+
+import turtle.Turtle;
+import turtle.interpreterPattern.IExpression;
 
 public class Turn extends Command implements IExpression {
 	IExpression rightOperand;
@@ -16,7 +19,7 @@ public class Turn extends Command implements IExpression {
 	}
 
 	@Override
-	public void execute() {
+	public void execute(Turtle aTurtle) {
 		// TODO Auto-generated method stub
 	}
 }

@@ -1,6 +1,9 @@
-package turtle.interpreterPattern;
+package turtle.interpreterPattern.command;
 
 import java.util.Map;
+
+import turtle.Turtle;
+import turtle.interpreterPattern.IExpression;
 
 public class Number extends Command implements IExpression {
 	private int number;
@@ -16,7 +19,7 @@ public class Number extends Command implements IExpression {
 	}
 
 	@Override
-	public void execute() {
+	public void execute(Turtle aTurtle) {
 		// TODO Auto-generated method stub
 	}
 }

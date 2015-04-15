@@ -1,12 +1,15 @@
-package turtle.interpreterPattern;
+package turtle.interpreterPattern.command;
 
 import java.util.Map;
 
-public class Move extends Command implements IExpression {
-	IExpression anExpression;
+import turtle.Turtle;
+import turtle.interpreterPattern.IExpression;
 
-	public Move(IExpression anExpression) {
-		this.anExpression = anExpression;
+public class Move extends Command implements IExpression {
+	private double distance;
+
+	public Move(double distance) {
+		this.distance = distance;
 	}
 
 	@Override
@@ -16,7 +19,7 @@ public class Move extends Command implements IExpression {
 	}
 
 	@Override
-	public void execute() {
+	public void execute(Turtle aTurtle) {
 		// TODO Auto-generated method stub
 	}
 }

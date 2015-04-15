@@ -6,9 +6,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import pen.Pen;
-import turtle.interpreterPattern.Command;
+import turtle.interpreterPattern.Evaluator;
+import turtle.interpreterPattern.IExpression;
+import turtle.interpreterPattern.command.Command;
+import turtle.interpreterPattern.command.Number;
 import coordinateSystem.Point;
 
 public class Turtle {
@@ -25,7 +30,7 @@ public class Turtle {
 		try {
 			File aFile = new File(directory.getCanonicalPath() + File.separator
 					+ "turtleProgram.txt");
-			readFile(aFile);
+			interpretCommandsFromFile(aFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -55,14 +60,26 @@ public class Turtle {
 		this.pen = pen;
 	}
 
-	private void readFile(File aFile) throws IOException {
+	private void interpretCommandsFromFile(File aFile) throws IOException {
 		FileInputStream aFileInputStream = new FileInputStream(aFile);
 		BufferedReader aBufferedReader = new BufferedReader(
 				new InputStreamReader(aFileInputStream));
 		String line = null;
 		while ((line = aBufferedReader.readLine()) != null) {
-			System.out.println(line);
+			Evaluator anEvaluator = new Evaluator(line);
+			Map<String, IExpression> variables = new HashMap<String, IExpression>();
+			variables.put("w", new Number(5));
+			variables.put("x", new Number(10));
+			variables.put("z", new Number(42));
+			commands.add(anEvaluator.interpret(variables));
 		}
 		aBufferedReader.close();
+	}
+
+	public void execute() {
+		execute(commands);
+	}
+
+	private void execute(ArrayList<Command> commands) {
 	}
 }

@@ -1,37 +1,38 @@
 package turtle.interpreterPattern;
 
 import java.util.Map;
-import java.util.Stack;
 
-import turtle.Turtle;
+import turtle.interpreterPattern.command.Command;
+import turtle.interpreterPattern.command.Move;
 
 public class Evaluator implements IExpression {
-	private IExpression syntaxTree;
-	private Turtle aTurtle;
+	private String anExpression;
 
-	public Evaluator(String expression, Turtle aTurtle) {
-		Stack<IExpression> expressionStack = new Stack<IExpression>();
-		for (String token : expression.split(" ")) {
-			if (token.equals("Repeat")) {
-			} else if (token.equals("End")) {
-			} else if (token.equals("Move")) {
-				IExpression subExpression = new Move(expressionStack.pop());
-				expressionStack.push(subExpression);
-			} else if (token.equals("Turn")) {
-				IExpression left = expressionStack.pop();
-				IExpression subExpression = new Turn(expressionStack.pop());
-				expressionStack.push(subExpression);
-			} else if (token.charAt(0) == '$') {
-			} else {
-			}
-			// expressionStack.push(new Variable(token));
-		}
-		syntaxTree = expressionStack.pop();
+	public Evaluator(String expression) {
+		this.anExpression = expression;
 	}
 
 	@Override
 	public Command interpret(Map<String, IExpression> variables) {
-		// TODO Auto-generated method stub
-		return syntaxTree.interpret(variables);
+		// TODO Implement all command constructions correctly
+		Command aCommand;
+		if (anExpression.contains("repeat")) {
+			double distance = Double.parseDouble(anExpression.split(" ")[1]);
+			aCommand = new Move(distance);
+		} else if (anExpression.contains("end")) {
+			double distance = Double.parseDouble(anExpression.split(" ")[1]);
+			aCommand = new Move(distance);
+		} else if (anExpression.contains("move")) {
+			double distance = Double.parseDouble(anExpression.split(" ")[1]);
+			aCommand = new Move(distance);
+		} else if (anExpression.contains("turn")) {
+			double distance = Double.parseDouble(anExpression.split(" ")[1]);
+			aCommand = new Move(distance);
+		} else {
+			// condition -> anExpression.contains("$");
+			double distance = Double.parseDouble(anExpression.split(" ")[1]);
+			aCommand = new Move(distance);
+		}
+		return aCommand;
 	}
 }
