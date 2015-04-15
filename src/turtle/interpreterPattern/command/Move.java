@@ -14,6 +14,11 @@ public class Move extends Command {
 	}
 
 	@Override
+	public String type() {
+		return "move";
+	}
+
+	@Override
 	public void execute(Turtle aTurtle) {
 		double x = aTurtle.getLocation().getX();
 		double y = aTurtle.getLocation().getY();

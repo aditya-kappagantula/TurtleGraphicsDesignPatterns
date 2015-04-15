@@ -5,6 +5,11 @@ import turtle.Turtle;
 
 public class PenDown extends Command {
 	@Override
+	public String type() {
+		return "penDown";
+	}
+
+	@Override
 	public void execute(Turtle aTurtle) {
 		Pen aPen = new Pen();
 		aPen.penDown();

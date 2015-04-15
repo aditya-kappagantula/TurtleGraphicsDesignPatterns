@@ -10,6 +10,11 @@ public class Variable extends Command {
 	}
 
 	@Override
+	public String type() {
+		return "variable";
+	}
+
+	@Override
 	public void execute(Turtle aTurtle) {
 		// TODO Auto-generated method stub
 	}

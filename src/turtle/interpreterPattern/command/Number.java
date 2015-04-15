@@ -10,6 +10,11 @@ public class Number extends Command {
 	}
 
 	@Override
+	public String type() {
+		return "number";
+	}
+
+	@Override
 	public void execute(Turtle aTurtle) {
 		// TODO Auto-generated method stub
 	}

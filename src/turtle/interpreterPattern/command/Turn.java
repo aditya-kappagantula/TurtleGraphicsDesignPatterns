@@ -10,6 +10,11 @@ public class Turn extends Command {
 	}
 
 	@Override
+	public String type() {
+		return "turn";
+	}
+
+	@Override
 	public void execute(Turtle aTurtle) {
 		double currentDirection = aTurtle.getDirection();
 		aTurtle.setDirection(currentDirection + direction);

@@ -13,6 +13,7 @@ import java.util.Map;
 import pen.Pen;
 import turtle.interpreterPattern.Evaluator;
 import turtle.interpreterPattern.command.Command;
+import turtle.interpreterPattern.command.Repeat;
 import coordinateSystem.Point;
 
 public class Turtle {
@@ -20,11 +21,13 @@ public class Turtle {
 	private Point location;
 	private Pen pen;
 	private ArrayList<Command> commands = new ArrayList<Command>();
+	private Map<String, Double> variables;
 
 	public Turtle() {
 		setLocation(new Point());
 		setDirection(0);
 		pen = new Pen();
+		variables = new HashMap<String, Double>();
 		File directory = new File(".");
 		try {
 			File aFile = new File(directory.getCanonicalPath() + File.separator
@@ -33,6 +36,10 @@ public class Turtle {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void addVariable(String aString, Double aValue) {
+		this.variables.put(aString, aValue);
 	}
 
 	public Point getLocation() {
@@ -66,15 +73,7 @@ public class Turtle {
 		String line = null;
 		while ((line = aBufferedReader.readLine()) != null) {
 			Evaluator anEvaluator = new Evaluator(line);
-			Map<String, Double> variables = new HashMap<String, Double>();
-			variables.put("w", 5.0);
-			variables.put("x", 10.0);
-			variables.put("z", 42.0);
-			Iterator<Command> anIterator = anEvaluator.interpret(variables)
-					.iterator();
-			while (anIterator.hasNext()) {
-				commands.add(anIterator.next());
-			}
+			commands.add(anEvaluator.interpret(variables));
 		}
 		aBufferedReader.close();
 	}
@@ -86,7 +85,26 @@ public class Turtle {
 	private void execute(ArrayList<Command> commands) {
 		Iterator<Command> anIterator = commands.iterator();
 		while (anIterator.hasNext()) {
-			anIterator.next().execute(this);
+			Command aCommand = anIterator.next();
+			if (aCommand.type() == "repeat") {
+				int repeatCount = ((Repeat) aCommand).getCount();
+				ArrayList<Command> repeatList = new ArrayList<Command>();
+				while (anIterator.hasNext()) {
+					aCommand = anIterator.next();
+					if (aCommand.type() != "end") {
+						repeatList.add(aCommand);
+					}
+				}
+				while (repeatCount > 0) {
+					for (Iterator<Command> repeatIterator = repeatList
+							.iterator(); repeatIterator.hasNext();) {
+						repeatIterator.next().execute(this);
+					}
+					repeatCount--;
+				}
+			} else {
+				aCommand.execute(this);
+			}
 		}
 	}
 }
