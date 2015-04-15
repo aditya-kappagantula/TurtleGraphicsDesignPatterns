@@ -1,21 +1,12 @@
 package turtle.interpreterPattern.command;
 
-import java.util.Map;
-
 import turtle.Turtle;
-import turtle.interpreterPattern.IExpression;
 
-public class Number extends Command implements IExpression {
+public class Number extends Command {
 	private int number;
 
 	public Number(int number) {
 		this.number = number;
-	}
-
-	@Override
-	public Command interpret(Map<String, IExpression> variables) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

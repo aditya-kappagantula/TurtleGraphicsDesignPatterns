@@ -2,11 +2,11 @@ package turtle.interpreterPattern.command;
 
 import turtle.Turtle;
 
-public class Variable extends Command {
-	private String name;
+public class Repeat extends Command {
+	private int count;
 
-	public Variable(String name) {
-		this.name = name;
+	public Repeat(int count) {
+		this.count = count;
 	}
 
 	@Override

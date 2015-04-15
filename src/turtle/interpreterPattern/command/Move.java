@@ -1,11 +1,8 @@
 package turtle.interpreterPattern.command;
 
-import java.util.Map;
-
 import turtle.Turtle;
-import turtle.interpreterPattern.IExpression;
 
-public class Move extends Command implements IExpression {
+public class Move extends Command {
 	private double distance;
 
 	public Move(double distance) {
@@ -13,13 +10,10 @@ public class Move extends Command implements IExpression {
 	}
 
 	@Override
-	public Command interpret(Map<String, IExpression> variables) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void execute(Turtle aTurtle) {
-		// TODO Auto-generated method stub
+		double x = aTurtle.getLocation().getX();
+		double y = aTurtle.getLocation().getY();
+		double degrees = aTurtle.getDirection();
+		// double radians =
 	}
 }

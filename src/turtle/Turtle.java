@@ -7,13 +7,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import pen.Pen;
 import turtle.interpreterPattern.Evaluator;
-import turtle.interpreterPattern.IExpression;
 import turtle.interpreterPattern.command.Command;
-import turtle.interpreterPattern.command.Number;
 import coordinateSystem.Point;
 
 public class Turtle {
@@ -67,10 +66,10 @@ public class Turtle {
 		String line = null;
 		while ((line = aBufferedReader.readLine()) != null) {
 			Evaluator anEvaluator = new Evaluator(line);
-			Map<String, IExpression> variables = new HashMap<String, IExpression>();
-			variables.put("w", new Number(5));
-			variables.put("x", new Number(10));
-			variables.put("z", new Number(42));
+			Map<String, Double> variables = new HashMap<String, Double>();
+			variables.put("w", 5.0);
+			variables.put("x", 10.0);
+			variables.put("z", 42.0);
 			commands.add(anEvaluator.interpret(variables));
 		}
 		aBufferedReader.close();
@@ -81,5 +80,9 @@ public class Turtle {
 	}
 
 	private void execute(ArrayList<Command> commands) {
+		Iterator<Command> anIterator = commands.iterator();
+		while (anIterator.hasNext()) {
+			anIterator.next().execute(this);
+		}
 	}
 }
