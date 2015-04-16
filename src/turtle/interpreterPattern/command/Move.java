@@ -1,6 +1,7 @@
 package turtle.interpreterPattern.command;
 
 import turtle.Turtle;
+import turtle.interpreterPattern.visitorPattern.ICommandVisitor;
 import unit.Degree;
 import unit.Unit;
 import unit.conversion.visitorPattern.UnitConversionVisitor;
@@ -31,5 +32,24 @@ public class Move extends Command {
 		destination.setX(x + deltaX);
 		destination.setY(y + deltaY);
 		aTurtle.setLocation(destination);
+	}
+
+	public void customExecute(Turtle aTurtle) {
+		double x = aTurtle.getLocation().getX();
+		double y = aTurtle.getLocation().getY();
+		Unit aDegree = new Degree();
+		aDegree.setValue(aTurtle.getDirection());
+		double radians = aDegree.accept(new UnitConversionVisitor());
+		double deltaX = Math.abs(Math.sin(radians)) * distance;
+		double deltaY = Math.abs(Math.cos(radians)) * distance;
+		Point destination = new Point();
+		destination.setX(x + deltaX);
+		destination.setY(y + deltaY);
+		aTurtle.setLocation(destination);
+	}
+
+	@Override
+	public void accept(ICommandVisitor anICommandVisitor, Turtle aTurtle) {
+		anICommandVisitor.visit(this, aTurtle);
 	}
 }

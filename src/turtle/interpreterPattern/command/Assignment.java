@@ -1,6 +1,7 @@
 package turtle.interpreterPattern.command;
 
 import turtle.Turtle;
+import turtle.interpreterPattern.visitorPattern.ICommandVisitor;
 
 public class Assignment extends Command {
 	private String aString;
@@ -18,7 +19,11 @@ public class Assignment extends Command {
 
 	@Override
 	public void execute(Turtle aTurtle) {
-		// TODO Auto-generated method stub
 		aTurtle.addVariable(aString, aValue);
+	}
+
+	@Override
+	public void accept(ICommandVisitor anICommandVisitor, Turtle aTurtle) {
+		anICommandVisitor.visit(this, aTurtle);
 	}
 }

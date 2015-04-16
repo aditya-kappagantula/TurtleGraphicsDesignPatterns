@@ -12,15 +12,16 @@ import java.util.Map;
 
 import pen.Pen;
 import turtle.interpreterPattern.Evaluator;
-import turtle.interpreterPattern.command.Command;
 import turtle.interpreterPattern.command.Repeat;
+import turtle.interpreterPattern.visitorPattern.ICommandElement;
+import turtle.interpreterPattern.visitorPattern.ICommandVisitor;
 import coordinateSystem.Point;
 
-public class Turtle {
+public class Turtle implements ICommandElement {
 	private double direction;
 	private Point location;
 	private Pen pen;
-	private ArrayList<Command> commands = new ArrayList<Command>();
+	private ArrayList<ICommandElement> commands = new ArrayList<ICommandElement>();
 	private Map<String, Double> variables;
 
 	public Turtle() {
@@ -79,16 +80,31 @@ public class Turtle {
 	}
 
 	public void execute() {
-		execute(commands);
+		execute(this);
 	}
 
-	private void execute(ArrayList<Command> commands) {
-		Iterator<Command> anIterator = commands.iterator();
+	@Override
+	public void accept(ICommandVisitor anICommandVisitor, Turtle aTurtle) {
+		for (ICommandElement eachCommand : commands) {
+			eachCommand.accept(anICommandVisitor, aTurtle);
+		}
+		anICommandVisitor.visit(this, aTurtle);
+	}
+
+	@Override
+	public String type() {
+		// TODO Auto-generated method stub
+		return "Turtle";
+	}
+
+	@Override
+	public void execute(Turtle aTurtle) {
+		Iterator<ICommandElement> anIterator = commands.iterator();
 		while (anIterator.hasNext()) {
-			Command aCommand = anIterator.next();
+			ICommandElement aCommand = anIterator.next();
 			if (aCommand.type() == "repeat") {
 				int repeatCount = ((Repeat) aCommand).getCount();
-				ArrayList<Command> repeatList = new ArrayList<Command>();
+				ArrayList<ICommandElement> repeatList = new ArrayList<ICommandElement>();
 				while (anIterator.hasNext()) {
 					aCommand = anIterator.next();
 					if (aCommand.type() != "end") {
@@ -96,7 +112,7 @@ public class Turtle {
 					}
 				}
 				while (repeatCount > 0) {
-					for (Iterator<Command> repeatIterator = repeatList
+					for (Iterator<ICommandElement> repeatIterator = repeatList
 							.iterator(); repeatIterator.hasNext();) {
 						repeatIterator.next().execute(this);
 					}

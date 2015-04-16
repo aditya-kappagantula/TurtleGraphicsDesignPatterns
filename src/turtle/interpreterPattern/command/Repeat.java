@@ -1,6 +1,7 @@
 package turtle.interpreterPattern.command;
 
 import turtle.Turtle;
+import turtle.interpreterPattern.visitorPattern.ICommandVisitor;
 
 public class Repeat extends Command {
 	private int count;
@@ -16,7 +17,7 @@ public class Repeat extends Command {
 
 	@Override
 	public void execute(Turtle aTurtle) {
-		// TODO Auto-generated method stub
+		// Note: This functionality does nothing for now.
 	}
 
 	/**
@@ -32,5 +33,10 @@ public class Repeat extends Command {
 	 */
 	public void setCount(int count) {
 		this.count = count;
+	}
+
+	@Override
+	public void accept(ICommandVisitor anICommandVisitor, Turtle aTurtle) {
+		anICommandVisitor.visit(this, aTurtle);
 	}
 }
